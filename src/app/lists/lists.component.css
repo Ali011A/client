@@ -1,0 +1,192 @@
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* أيقونات SVG */
+.icon-heart path,
+.icon-eye path,
+.icon-retweet path {
+  fill: red; 
+}
+
+/* ترتيب الأيقونة داخل النص */
+.icon-heart,
+.icon-eye,
+.icon-retweet {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+
+svg {
+  overflow: visible;
+  vertical-align: middle;
+}
+.icon-heart:hover path,
+.icon-eye:hover path,
+.icon-retweet:hover path {
+  fill: #ff2525; 
+}
+
+/* Custom Pagination Design */
+::ng-deep .custom-pagination {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 50px; /* زوايا مستديرة */
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .custom-pagination li {
+  margin: 0 4px;
+}
+
+::ng-deep .custom-pagination li a,
+::ng-deep .custom-pagination li span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  color: #6f42c1; /* لون رئيسي (بنفسجي) */
+  background-color: #f8f6ff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+::ng-deep .custom-pagination li.active a,
+::ng-deep .custom-pagination li a:hover,
+::ng-deep .custom-pagination li span:hover {
+  background-color: #6f42c1;
+  color: white;
+  border-color: #6f42c1;
+}
+
+::ng-deep .custom-pagination li.disabled a,
+::ng-deep .custom-pagination li.disabled span {
+  color: #ccc;
+  pointer-events: none;
+  background-color: #f8f6ff;
+}
+
+/* تخصيص الأزرار الخاصة بالأسهم */
+::ng-deep .custom-pagination .pagination-first a,
+::ng-deep .custom-pagination .pagination-prev a,
+::ng-deep .custom-pagination .pagination-next a,
+::ng-deep .custom-pagination .pagination-last a {
+  color: #6f42c1; /* لون رئيسي (بنفسجي) */
+  background-color: #f8f6ff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .custom-pagination .pagination-first a:hover,
+::ng-deep .custom-pagination .pagination-prev a:hover,
+::ng-deep .custom-pagination .pagination-next a:hover,
+::ng-deep .custom-pagination .pagination-last a:hover {
+  background-color: #6f42c1;
+  color: white;
+  border-color: #6f42c1;
+}
+
+/* تخصيص الأزرار غير النشطة */
+::ng-deep .custom-pagination .pagination-first.disabled a,
+::ng-deep .custom-pagination .pagination-prev.disabled a,
+::ng-deep .custom-pagination .pagination-next.disabled a,
+::ng-deep .custom-pagination .pagination-last.disabled a {
+  color: #ccc;
+  pointer-events: none;
+  background-color: #f8f6ff;
+  opacity: 0.5; /* تقليل الشفافية */
+}
+
+/* تخصيص الأزرار النشطة */
+::ng-deep .custom-pagination .page-item.active .page-link {
+  background-color: #6f42c1;
+  color: white;
+  border-color: #6f42c1;
+  box-shadow: 0 2px 8px rgba(111, 66, 193, 0.5); /* ظل بنفسجي فاتح */
+}
+
+/* Optional: Make it smaller on mobile */
+@media (max-width: 768px) {
+  ::ng-deep .custom-pagination li a,
+  ::ng-deep .custom-pagination li span {
+    min-width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+}
+
+
+/* Card Hover Effect */
+.col-lg-3:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Button Active State */
+.btn.active {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
+/* Custom Card Border */
+.card {
+  border: none;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Profile Image */
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-img-top:hover {
+  transform: scale(1.1);
+}
+
+/* Like Badge */
+.like-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  color: #ff2525;
+  cursor: pointer;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+
+/* Responsive Padding */
+@media (max-width: 576px) {
+  .btn-group-lg {
+    flex-direction: column;
+  }
+}

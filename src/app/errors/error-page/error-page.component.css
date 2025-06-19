@@ -1,0 +1,555 @@
+/* .error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  text-align: center;
+
+
+  &.not-found {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &.server-error {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+
+  .background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.1);
+      animation-delay: calc(var(--i) * 0.5s);
+
+      &.heart-1 {
+        top: 20%;
+        right: 15%;
+        --i: 0;
+        animation-duration: 3s;
+      }
+
+      &.heart-2 {
+        top: 60%;
+        right: 80%;
+        --i: 1;
+        animation-duration: 4s;
+      }
+
+      &.heart-3 {
+        top: 40%;
+        right: 10%;
+        --i: 2;
+        animation-duration: 3.5s;
+      }
+
+      &.heart-4 {
+        top: 80%;
+        right: 60%;
+        --i: 3;
+        animation-duration: 4.5s;
+      }
+
+      &::before {
+        content: '💖';
+      }
+    }
+  }
+
+  .error-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    width: 90%;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .error-icon {
+    margin-bottom: 2rem;
+
+    .icon-wrapper {
+      display: inline-block;
+      font-size: 6rem;
+      line-height: 1;
+    }
+
+    .broken-heart {
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .server-icon {
+      filter: drop-shadow(0 4px 8px rgba(245, 87, 108, 0.3));
+    }
+  }
+
+  .error-message {
+    margin-bottom: 3rem;
+
+    .error-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #2d3748;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .error-subtitle {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 1rem;
+    }
+
+    .error-description {
+      font-size: 1.1rem;
+      color: #718096;
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+
+      .btn-icon {
+        font-size: 1.1rem;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s;
+      }
+
+      &:hover::before {
+        left: 100%;
+      }
+
+      &.btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+      }
+
+      &.btn-secondary {
+        background: linear-gradient(135deg, #4fd1c7, #06bcc1);
+        color: white;
+        box-shadow: 0 4px 15px rgba(79, 209, 199, 0.4);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(79, 209, 199, 0.6);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .suggestions {
+    text-align: right;
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.75rem;
+
+        a {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #667eea;
+          text-decoration: none;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: 50px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #5a67d8;
+            transform: translateX(-5px);
+          }
+        }
+      }
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .error-content {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .error-icon .icon-wrapper {
+      font-size: 4rem;
+    }
+
+    .error-message .error-title {
+      font-size: 2rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+  }
+}
+
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .error-container .error-content {
+    background: rgba(26, 32, 44, 0.95);
+    color: #e2e8f0;
+
+    .error-title {
+      color: #f7fafc;
+    }
+
+    .error-subtitle {
+      color: #cbd5e0;
+    }
+
+    .error-description {
+      color: #a0aec0;
+    }
+
+    .suggestions h3 {
+      color: #f7fafc;
+    }
+  }
+} */
+ /*
+ component styles for error page
+ */
+ :host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #FFF5F7;
+  background-image: radial-gradient(rgba(247, 37, 133, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.error-container.server-error {
+  background-color: #F1F5FD;
+  background-image: radial-gradient(rgba(13, 110, 253, 0.1) 1px, transparent 1px);
+}
+
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  color: rgba(247, 37, 133, 0.3);
+  opacity: 0.7;
+}
+
+.heart::after {
+  content: "❤️";
+}
+
+.heart-1 {
+  top: 15%;
+  left: 10%;
+  font-size: 1.8rem;
+}
+
+.heart-2 {
+  top: 40%;
+  left: 80%;
+  font-size: 2.2rem;
+}
+
+.heart-3 {
+  top: 75%;
+  left: 15%;
+  font-size: 1.5rem;
+}
+
+.heart-4 {
+  top: 25%;
+  left: 85%;
+  font-size: 2rem;
+}
+
+.server-error .heart::after {
+  content: "⚡";
+  color: rgba(13, 110, 253, 0.3);
+}
+
+.error-content {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+.error-icon {
+  margin-bottom: 2rem;
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #FFF5F7;
+  font-size: 3.5rem;
+}
+
+.server-error .icon-wrapper {
+  background-color: #F1F5FD;
+}
+
+.error-message {
+  margin-bottom: 2rem;
+}
+
+.error-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.error-subtitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.error-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #F7266D;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #E91E63;
+  transform: translateY(-2px);
+}
+
+.server-error .btn-primary {
+  background-color: #0D6EFD;
+}
+
+.server-error .btn-primary:hover {
+  background-color: #0B5ED7;
+}
+
+.btn-secondary {
+  background-color: #F2F2F2;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #E6E6E6;
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  font-size: 1.25rem;
+}
+
+.suggestions {
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.suggestions h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.suggestions li {
+  margin-bottom: 0.75rem;
+}
+
+.suggestions a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #FFF5F7;
+  border-radius: 6px;
+  color: #F7266D;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.suggestions a:hover {
+  background-color: #FFE6EF;
+  transform: translateY(-2px);
+} 
+
+/* Responsive adjustments */
+ @media (max-width: 768px) {
+  .error-content {
+    padding: 1.5rem;
+  }
+
+  .icon-wrapper {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+  }
+
+  .error-title {
+    font-size: 1.75rem;
+  }
+
+  .error-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .suggestions ul {
+    flex-direction: column;
+  }
+} 

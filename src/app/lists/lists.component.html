@@ -1,0 +1,98 @@
+ 
+<div class="container py-5">
+  <!-- Filter Buttons -->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="btn-group btn-group-lg" role="group">
+      <button 
+        type="button" 
+        class="btn btn-outline-primary"
+        [class.active]="predicate === 'liked'"
+        (click)="predicate = 'liked'; loadLikes()">
+        <i class="fa fa-heart me-2"></i>Who You Liked
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary"
+        [class.active]="predicate === 'likedBy'"
+        (click)="predicate = 'likedBy'; loadLikes()">
+        <i class="fa fa-eye me-2"></i>Liked By Others
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-outline-success"
+        [class.active]="predicate === 'mutual'"
+        (click)="predicate = 'mutual'; loadLikes()">
+        <i class="fa fa-retweet me-2"></i>Mutual Likes
+      </button>
+    </div>
+  </div>
+
+  <!-- Dynamic Title -->
+  <h2 class="text-center mb-4 text-gradient" [innerHTML]="getTitle()"></h2>
+
+  <!-- Loading State -->
+  <div class="text-center my-4" *ngIf="members.length === 0">
+    <i class="fas fa-spinner fa-spin fa-3x text-primary" *ngIf="!members.length && !loadingComplete"></i>
+    <div *ngIf="loadingComplete && members.length === 0">
+      <i class="fas fa-heart-broken fa-5x text-muted mb-3 d-block"></i>
+      <h4 class="text-muted">No members found in this category</h4>
+    </div>
+  </div>
+
+  <!-- Members Grid -->
+  <div class="row g-4">
+    @for (member of likeService.paginationResult()?.items; track member.id) {
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <app-member-card [member]="member"></app-member-card>
+      </div>
+    }
+  </div>
+</div>
+@if(likeService.paginationResult()?.pagination) {
+ <div class="d-flex justify-content-center">
+  <pagination 
+    [boundaryLinks]="true" 
+    [totalItems]="likeService.paginationResult()?.pagination!.totalItems"
+    [itemsPerPage]="likeService.paginationResult()?.pagination!.itemsPerPage"
+    [(ngModel)]="likeService.paginationResult()?.pagination!.currentPage"
+    (pageChanged)="onPageChanged($event)"
+    [maxSize]="10"
+    previousText="&lsaquo;" 
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+    class="custom-pagination pagination-sm"
+  >
+  </pagination>
+</div>
+ <!-- <div class="d-flex justify-content-center mt-4">
+  <ul class="pagination pagination-lg shadow-sm rounded-pill">
+    <li class="page-item" [class.disabled]="likeService.paginationResult()?.pagination!.currentPage === 1">
+      <a class="page-link" (click)="onPageChanged({ page: 1 })">&laquo;</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="likeService.paginationResult()?.pagination!.currentPage === 1">
+      <a class="page-link" (click)="onPageChanged({ page: likeService.paginationResult()?.pagination!.currentPage - 1 })">&lsaquo;</a>
+    </li>
+
+ 
+    <ng-container *ngIf="likeService.paginationResult()?.pagination as p">
+      <li class="page-item"
+          *ngFor="let page of [].constructor(p.totalPages); let i = index"
+          [class.active]="i + 1 === p.currentPage">
+        <a class="page-link" (click)="onPageChanged({ page: i + 1 })">
+          {{ i + 1 }}
+        </a>
+      </li>
+    </ng-container>
+
+    <li class="page-item" [class.disabled]="likeService.paginationResult()?.pagination!.currentPage === likeService.paginationResult()?.pagination!.totalPages">
+      <a class="page-link" (click)="onPageChanged({ page: likeService.paginationResult()?.pagination!.currentPage + 1 })">&rsaquo;</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="likeService.paginationResult()?.pagination!.currentPage === likeService.paginationResult()?.pagination!.totalPages">
+      <a class="page-link" (click)="onPageChanged({ page: likeService.paginationResult()?.pagination!.totalPages })">&raquo;</a>
+    </li>
+  </ul>
+</div> -->
+}

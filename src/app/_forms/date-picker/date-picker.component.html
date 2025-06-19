@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label>تاريخ الميلاد</label>
+  <input type="text" [class.is-invalid]="registerForm.get('dateOfBirth')?.errors
+   && registerForm.get('dateOfBirth')?.touched" formControlName="dateOfBirth" 
+   class="form-control"
+   bsDatepicker
+   [bsConfig]="bsConfig"
+   [maxDate]="maxDate()"
+   >
+  
+  <div class="invalid-feedback text-start" *ngIf="registerForm.get('dateOfBirth')?.hasError('required')
+   && registerForm.get('dateOfBirth')?.touched">
+    تاريخ الميلاد مطلوب
+</div>
+</div>

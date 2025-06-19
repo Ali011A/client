@@ -1,0 +1,54 @@
+.register-form {
+  text-align: right;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Input Styles */
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ffd700;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Validation Error Styles */
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.custom-invalid-feedback {
+  display: none;
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.form-group .is-invalid ~ .custom-invalid-feedback {
+  display: block;
+}

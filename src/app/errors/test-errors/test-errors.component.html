@@ -1,0 +1,34 @@
+<div>
+  <h1 class="text-center">Test Errors</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <button class="btn btn-primary" (click)="get404Error()">Not Found</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-secondary" (click)="get400Error()">Bad Request</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-danger" (click)="get500Error()">Server Error</button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <button class="btn btn-warning" (click)="get401Error()">Unauthorized</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-info" (click)="get400VaildationError()">Validation Error</button>
+      </div>
+    </div>
+  </div>
+  @if(validationError.length > 0) {
+    <div class="alert alert-danger mt-3">
+      <ul>
+        @for(error of validationError; track $index) {
+          <li>{{ error }}</li>
+        }
+      </ul>
+    </div>
+
+  }
+</div>

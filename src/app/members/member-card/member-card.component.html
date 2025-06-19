@@ -1,0 +1,182 @@
+<!-- <div class="member-card" (click)="onCardClick()">
+
+  <div class="card-header">
+    <img
+      src="{{member().photoUrl}}"
+      [alt]="member().knownAs"
+      class="profile-image"
+      (error)="onImageError($event)"
+    >
+
+
+    <div class="status-indicator" [class.online]="isOnline()"></div>
+
+
+    <div class="age-badge">
+      <span>{{ member().age }}</span>
+    </div>
+
+
+    <div class="gradient-overlay"></div>
+  </div>
+
+
+  <div class="card-content">
+
+    <div class="name-section">
+      <h3 class="name">{{ member().knownAs }}</h3>
+      <p class="location">
+        <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        {{ member().city }}, {{ member().country }}
+      </p>
+    </div>
+
+
+    <div class="info-tags">
+      <span class="tag gender-tag" [class]="member().gender.toLowerCase()">
+        {{ member().gender }}
+      </span>
+      <span class="tag activity-tag">
+        {{ getLastActiveText() }}
+      </span>
+    </div>
+
+
+    <div class="introduction" *ngIf="member().introduction">
+      <p>{{ getIntroductionPreview() }}</p>
+    </div>
+
+
+    <div class="interests" *ngIf="member().interests">
+      <div class="interests-container">
+        <span
+          *ngFor="let interest of getInterestsList(); let i = index"
+          class="interest-chip"
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          {{ interest }}
+        </span>
+      </div>
+    </div>
+
+
+    <div class="action-buttons">
+      <button class="btn btn-secondary" (click)="onViewProfile($event)">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+        </svg>
+        View Profile
+      </button>
+      <button class="btn btn-primary" (click)="onLike($event)">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        Like
+      </button>
+    </div>
+  </div>
+</div> -->
+
+<!-- member-card.component.html -->
+<div class="member-card" (click)="onCardClick()">
+  <!-- Profile Image Section -->
+  <div class="card-header">
+    <img
+      src="{{member().photoUrl || '/src/assets/user.png'}}"
+      [alt]="member().knownAs"
+      class="profile-image"
+      (error)="onImageError($event)"
+    >
+
+    <!-- Online Status Indicator -->
+    <div class="status-indicator" [class.online]="isOnline()"></div>
+
+    <!-- Age Badge -->
+    <div class="age-badge">
+      <span>{{ member().age }}</span>
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="gradient-overlay"></div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-content">
+    <!-- Name and Location -->
+    <div class="name-section">
+      <h3 class="name">{{ member().knownAs }}</h3>
+      <p class="location">
+        <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        {{ member().city }}, {{ member().country }}
+      </p>
+    </div>
+
+    <!-- Quick Info Tags -->
+    <div class="info-tags">
+      <span class="tag gender-tag" [class]="member().gender.toLowerCase()">
+        {{ member().gender }}
+      </span>
+      <span class="tag activity-tag">
+        {{ getLastActiveText() }}
+      </span>
+      @if(hasLiked()){
+      <i class="fa fa-heart ms-2" style="color: red;"> </i>
+      }
+    </div>
+
+    <!-- Introduction Preview -->
+    <div class="introduction" *ngIf="member().introduction">
+      <p>{{ getIntroductionPreview() }}</p>
+    </div>
+
+    <!-- Interests -->
+    <div class="interests" *ngIf="member().interests">
+      <div class="interests-container">
+        <span
+          *ngFor="let interest of getInterestsList(); let i = index"
+          class="interest-chip"
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          {{ interest }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-secondary"  routerLink="/members/{{ member().userName}}" routerLinkActive="router-link-active"    >
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+        </svg>
+        View
+      </button>
+      <button class="btn btn-message" (click)="onMessage($event)">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        Message
+      </button>
+      @if(hasLiked()){
+ <button class="btn btn-primary" (click)="toggleLike()">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        Liked
+      </button>
+
+      }@else{  
+        <button class="btn btn-primary" (click)="toggleLike()">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        Like
+      </button>
+    }
+    
+    </div>
+  </div>
+</div>

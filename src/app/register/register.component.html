@@ -1,0 +1,122 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <div class="register-form">
+    <div class="mb-3">
+      <label style="margin-right: 10px;" >I am a:</label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="gender" id="male" value="male">
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" formControlName="gender" id="female" value="female">
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>الاسم الكامل</label>
+      <input [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched"
+        type="text" formControlName="username" placeholder="أدخل اسمك الكامل" class="form-control">
+
+       <div class="invalid-feedback text-start" *ngIf="registerForm.get('username')?.hasError('required')
+       && registerForm.get('username')?.touched">
+      الاسم الكامل مطلوب
+    </div>
+    <div class="invalid-feedback text-start" *ngIf="registerForm.get('username')?.hasError('minlength')
+     && registerForm.get('username')?.touched">
+      يجب أن يكون الاسم الكامل على الأقل 4 أحرف
+    </div>
+
+    </div>
+    <div class="form-group">
+      <label> تعرف ب   </label>
+     <input type="text"  [class.is-invalid]="registerForm.get('knownAs')?.errors
+      && registerForm.get('knownAs')?.touched"  formControlName="knownAs"
+      placeholder="Know As" class="form-control">
+      <div class="invalid-feedback text-start" *ngIf="registerForm.get('knownAs')?.hasError('required')
+       && registerForm.get('knownAs')?.touched">
+        تعرف ب مطلوب
+    </div>
+    </div>
+<!-- <div class="form-group">
+  <label>تاريخ الميلاد</label>
+  <input type="date" [class.is-invalid]="registerForm.get('dateOfBirth')?.errors
+   && registerForm.get('dateOfBirth')?.touched" formControlName="dateOfBirth" class="form-control">
+
+  <div class="invalid-feedback text-start" *ngIf="registerForm.get('dateOfBirth')?.hasError('required')
+   && registerForm.get('dateOfBirth')?.touched">
+    تاريخ الميلاد مطلوب
+</div>
+</div> -->
+<app-date-picker formControlName="dateOfBirth"
+[label]="'تاريخ الميلاد'"  [maxDate]="maxDate"
+></app-date-picker>
+    <div class="form-group">
+      <label>المدينة</label>
+      <input type="text" [class.is-invalid]="registerForm.get('city')?.errors
+       && registerForm.get('city')?.touched"
+        formControlName="city" placeholder="City" class="form-control">
+
+      <div class="invalid-feedback text-start" *ngIf="registerForm.get('city')?.hasError('required')
+       && registerForm.get('city')?.touched">
+        المدينة مطلوبة
+      </div>
+    </div>
+    <div class="form-group">
+      <label>الدولة</label>
+      <input type="text" [class.is-invalid]="registerForm.get('country')?.errors
+       && registerForm.get('country')?.touched"
+        formControlName="country" placeholder="Country" class="form-control">
+
+      <div class="invalid-feedback text-start" *ngIf="registerForm.get('country')?.hasError('required')
+       && registerForm.get('country')?.touched">
+        الدولة مطلوبة
+      </div>
+    </div>
+    <div class="form-group">
+      <label>كلمة السر</label>
+      <input [class.is-invalid]="registerForm.get('password')?.invalid
+                    && registerForm.get('password')?.touched" type="password" formControlName="password"
+        placeholder="أدخل كلمة السر" class="form-control">
+
+      <div class="invalid-feedback text-start" *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+  كلمة السر مطلوبة
+</div>
+<div class="invalid-feedback text-start" *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched">
+  كلمة السر يجب أن تكون على الأقل 6 حروف
+</div>
+<div class="invalid-feedback text-start" *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched">
+  كلمة السر يجب أن تحتوي على حرف كبير وحرف صغير ورقم
+</div>
+
+    </div>
+
+    <div class="form-group">
+      <label>تاكيد كلمة السر</label>
+      <input
+        [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
+        type="password" formControlName="confirmPassword" placeholder="أدخل تأكيد كلمة السر" class="form-control">
+
+    <div class="invalid-feedback text-start" *ngIf="registerForm.get('confirmPassword')?.hasError('required')
+     && registerForm.get('confirmPassword')?.touched">
+  تأكيد كلمة السر مطلوب
+</div>
+<div class="invalid-feedback text-start" *ngIf="registerForm.get('confirmPassword')?.hasError('mismatch')
+ && registerForm.get('confirmPassword')?.touched">
+  كلمة السر وتأكيد كلمة السر غير متطابقين
+</div>
+
+
+    </div>
+
+
+
+  </div>
+  <div class="from-group text-center">
+    <button type="submit"  [disabled]="!registerForm.valid" class="btn btn-primary">تسجيل</button>
+  </div>
+</form>
+<!-- <pre>{{ registerForm.value | json }}</pre>
+
+<p >  {{registerForm.status}}</p>
+<p>Username Touched? {{ registerForm.get('username')?.touched }}</p>
+<p>Password Touched? {{ registerForm.get('password')?.touched }}</p>
+<p>Confirm Password Touched? {{ registerForm.get('confirmPassword')?.touched }}</p> -->

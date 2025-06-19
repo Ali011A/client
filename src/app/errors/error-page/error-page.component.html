@@ -1,0 +1,125 @@
+  <!-- <div class="error-container" [ngClass]="errorType">
+      <div class="background-animation">
+        <div class="heart heart-1" [@heartFloat]></div>
+        <div class="heart heart-2" [@heartFloat]></div>
+        <div class="heart heart-3" [@heartFloat]></div>
+        <div class="heart heart-4" [@heartFloat]></div>
+      </div>
+
+      <div class="error-content" [@slideIn]>
+        <div class="error-icon">
+          <div class="icon-wrapper" [@pulse]>
+            <ng-container [ngSwitch]="errorType">
+              404 Error Icon -
+              <div *ngSwitchCase="'not-found'" class="broken-heart">
+                💔
+              </div>
+               Server Error Icon
+              <div *ngSwitchCase="'server-error'" class="server-icon">
+                ⚡
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="error-message">
+          <h1 class="error-title" [@fadeIn]>
+            {{ getTitle() }}
+          </h1>
+          <p class="error-subtitle" [@fadeIn]>
+            {{ getSubtitle() }}
+          </p>
+          <p class="error-description" [@fadeIn]>
+            {{ getDescription() }}
+          </p>
+        </div>
+
+        <div class="error-actions" [@fadeIn]>
+          <button class="btn btn-primary" (click)="goHome()">
+            <span class="btn-icon">🏠</span>
+            العودة للرئيسية
+          </button>
+          <button class="btn btn-secondary" (click)="goBack()" *ngIf="errorType === 'not-found'">
+            <span class="btn-icon">↩️</span>
+            رجوع
+          </button>
+          <button class="btn btn-secondary" (click)="retry()" *ngIf="errorType === 'server-error'">
+            <span class="btn-icon">🔄</span>
+            إعادة المحاولة
+          </button>
+        </div>
+
+        <div class="suggestions" [@fadeIn] *ngIf="errorType === 'not-found'">
+          <h3>ربما تبحث عن:</h3>
+          <ul>
+            <li><a (click)="navigateTo('/browse')">🔍 تصفح الملفات الشخصية</a></li>
+            <li><a (click)="navigateTo('/matches')">💕 مطابقاتي</a></li>
+            <li><a (click)="navigateTo('/messages')">💬 الرسائل</a></li>
+            <li><a (click)="navigateTo('/profile')">👤 ملفي الشخصي</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+
+  <div class="error-container" [ngClass]="errorType">
+  <div class="background-animation">
+    <div class="heart heart-1" [@heartFloat]="floatingState"></div>
+    <div class="heart heart-2" [@heartFloat]="floatingState"></div>
+    <div class="heart heart-3" [@heartFloat]="floatingState"></div>
+    <div class="heart heart-4" [@heartFloat]="floatingState"></div>
+  </div>
+
+  <div class="error-content" [@slideIn]>
+    <div class="error-icon">
+      <div class="icon-wrapper" [@pulse]="pulseState">
+        <ng-container [ngSwitch]="errorType">
+          <!-- 404 Error Icon -->
+          <div *ngSwitchCase="'not-found'" class="broken-heart">
+            💔
+          </div>
+          <!-- Server Error Icon -->
+          <div *ngSwitchCase="'server-error'" class="server-icon">
+            ⚡
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="error-message">
+      <h1 class="error-title" [@fadeIn]>
+        {{ getTitle() }}
+      </h1>
+      <p class="error-subtitle" [@fadeIn]>
+        {{ getSubtitle() }}
+      </p>
+      <p class="error-description" [@fadeIn]>
+        {{ getDescription() }}
+      </p>
+    </div>
+
+    <div class="error-actions" [@fadeIn]>
+      <button class="btn btn-primary" (click)="goHome()">
+        <span class="btn-icon">🏠</span>
+        العودة للرئيسية
+      </button>
+      <button class="btn btn-secondary" (click)="goBack()" *ngIf="errorType === 'not-found'">
+        <span class="btn-icon">↩️</span>
+        رجوع
+      </button>
+      <button class="btn btn-secondary" (click)="retry()" *ngIf="errorType === 'server-error'">
+        <span class="btn-icon">🔄</span>
+        إعادة المحاولة
+      </button>
+    </div>
+
+    <div class="suggestions" [@fadeIn] *ngIf="errorType === 'not-found'">
+      <h3>ربما تبحث عن:</h3>
+      <ul>
+        <li><a (click)="navigateTo('/browse')">🔍 تصفح الملفات الشخصية</a></li>
+        <li><a (click)="navigateTo('/matches')">💕 مطابقاتي</a></li>
+        <li><a (click)="navigateTo('/messages')">💬 الرسائل</a></li>
+        <li><a (click)="navigateTo('/profile')">👤 ملفي الشخصي</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
