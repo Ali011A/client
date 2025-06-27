@@ -1,12 +1,17 @@
-<div class="row">
+<div class="row g-4 mt-4">
   @for (photo of member().photos; track photo.id) {
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-      <div class="photo-card">
-        <img [src]="photo.url" alt="Member Photo" class="img-fluid rounded">
-        <div class="photo-actions">
-          <button class="btn btn-primary" >Set as Main</button>
-          <button class="btn btn-danger" >Delete</button>
-        </div>
+      <div class="photo-card shadow-sm position-relative">
+        <img [src]="photo.url" alt="Member Photo"
+             class="img-fluid rounded photo-img"
+             [class.not-approved]="!photo.isApproved">
+
+        @if (!photo.isApproved) {
+          <div class="approval-overlay">
+            <i class="fas fa-clock text-warning"></i>
+            <span class="text">Awaiting approval</span>
+          </div>
+        }
       </div>
     </div>
   }

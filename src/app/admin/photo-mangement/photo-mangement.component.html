@@ -1,1 +1,33 @@
-<p>photo-mangement works!</p>
+<div class="container my-5">
+  <h2 class="text-center text-primary mb-4">Pending Photo Approvals</h2>
+
+  <div class="row g-4">
+    @for (photo of photos; track photo.id) {
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div class="photo-card shadow-sm">
+          <img [src]="photo.url" class="img-fluid rounded photo-img" alt="{{ photo.username }}'s Photo">
+
+          <div class="photo-info mt-2 text-center">
+            <h6 class="text-secondary mb-2">{{ photo.username }}</h6>
+            <div class="btn-group w-100">
+              <button class="btn btn-sm btn-success" (click)="approvePhoto(photo.id)">
+                <i class="fas fa-check"></i> Approve
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="rejectPhoto(photo.id)">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if(photos.length === 0) {
+    <div class="text-center text-muted mt-5">
+      <i class="fas fa-image fa-2x mb-2"></i>
+      <p>No pending photos found.</p>
+    </div>
+  }
+</div>
+

@@ -235,14 +235,59 @@
   padding: 1rem;
 }
 
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1rem;
+.photo-gallery-container {
+  padding: 1rem;
+  background: #f3f4f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.photo-gallery img {
+/* إذا كنت تستخدم ngx-gallery أو gallery.js */
+.gallery {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  max-width: 1000px;
+  margin: auto;
+  --gallery-bg: #f9fafb;
+}
+
+/* رسالة لا توجد صور */
+.no-photos-message {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.1rem;
+  padding: 2rem;
+}
+
+.no-photos-message i {
+  font-size: 3rem;
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+}
+
+/* responsive fix */
+@media (max-width: 768px) {
+  .photo-gallery-container {
+    padding: 0.5rem;
+  }
+
+  .no-photos-message {
+    font-size: 1rem;
+  }
+
+  .no-photos-message i {
+    font-size: 2.5rem;
+  }
+}
+.photo-gallery-container .gallery img {
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.photo-gallery-container .gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }

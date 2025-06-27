@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/r
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TimeagoModule} from 'ngx-timeago';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { MemberMessagesComponent } from '../member-messages/member-messages.component';
 import { Message } from '../../_models/message';
 import { MessageService } from '../../_services/message.service';
@@ -14,7 +14,7 @@ import { AccountService } from '../../_services/account.service';
 import { HubConnectionState } from '@microsoft/signalr';
 @Component({
   selector: 'app-member-detail',
-  imports: [TabsModule,GalleryModule,RouterLink,RouterLinkActive,TimeagoModule,DatePipe,MemberMessagesComponent],
+  imports: [TabsModule,GalleryModule,RouterLink,RouterLinkActive,TimeagoModule,DatePipe,MemberMessagesComponent,NgIf],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css'
 })

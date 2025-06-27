@@ -105,100 +105,90 @@
 
           <input type="radio" name="tabs" id="tab2">
           <label for="tab2" class="tab">Edit Photos</label>
-          <div class="tab-content">
-            <div class="col-sm-12">
-              <div class="photo-editor">
-                <div class="row">
-                  <h2>Photo Management</h2>
-                  <p>Add and manage your photos here</p>
+      <div class="tab-content">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="mb-3 text-primary">Photo Management</h4>
+      <p class="text-muted">Add and manage your photos here</p>
 
-                  <div class="photo-upload-section">
-                    <div class="upload-box">
-
-<div class="mt-4">
-  <h3>ADD PHOTOS</h3>
-
-  <div
-    ng2FileDrop
-    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
-    (fileOver)="fileOverBase($event)"
-    [uploader]="uploader"
-    class="well my-drop-zone"
-  >
-    Drag and drop images here
-  </div>
-
-  <div class="mt-3" *ngIf="uploader?.queue?.length">
-    <h4>Upload queue</h4>
-    <p>Queue length: {{ uploader?.queue?.length }}</p>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Size</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of uploader?.queue">
-          <td>{{ item?.file?.name }}</td>
-          <td *ngIf="uploader?.options?.isHTML5">{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div>
-      <div>Queue progress:</div>
-      <div class="progress">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          [ngStyle]="{ width: uploader?.progress + '%' }"
-        ></div>
+      <!-- Drop Zone -->
+      <div
+        ng2FileDrop
+        [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+        (fileOver)="fileOverBase($event)"
+        [uploader]="uploader"
+        class="drop-zone p-4 mb-4 border border-2 border-primary rounded text-center"
+      >
+        <i class="fa fa-cloud-upload-alt fa-2x text-primary mb-2"></i>
+        <p class="mb-0">Drag and drop images here or click to browse</p>
       </div>
-      <div class="mt-2">
-        <button class="btn btn-success btn-sm" (click)="uploader?.uploadAll()" [disabled]="!uploader?.getNotUploadedItems()?.length">
-          <i class="fa fa-upload"></i> Upload all
-        </button>
-        <button class="btn btn-warning btn-sm" (click)="uploader?.cancelAll()" [disabled]="!uploader?.isUploading">
-          <i class="fa fa-ban"></i> Cancel all
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="uploader?.clearQueue()" [disabled]="!uploader?.queue?.length">
-          <i class="fa fa-trash"></i> Remove all
-        </button>
+
+      <!-- Upload Queue -->
+      <div *ngIf="uploader?.queue?.length" class="mb-4">
+        <h5 class="mb-3">Upload Queue ({{ uploader?.queue?.length }})</h5>
+        <table class="table table-sm table-striped align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Filename</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of uploader?.queue">
+              <td>{{ item?.file?.name }}</td>
+              <td *ngIf="uploader?.options?.isHTML5">{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="progress mb-2">
+          <div
+            class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            [ngStyle]="{ width: uploader?.progress + '%' }"
+          ></div>
+        </div>
+
+        <div class="btn-group mb-3">
+          <button class="btn btn-success btn-sm" (click)="uploader?.uploadAll()" [disabled]="!uploader?.getNotUploadedItems()?.length">
+            <i class="fa fa-upload"></i> Upload All
+          </button>
+          <button class="btn btn-warning btn-sm" (click)="uploader?.cancelAll()" [disabled]="!uploader?.isUploading">
+            <i class="fa fa-ban"></i> Cancel All
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="uploader?.clearQueue()" [disabled]="!uploader?.queue?.length">
+            <i class="fa fa-trash"></i> Remove All
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
-                    </div>
-                  </div>
-
-                  <div class="current-photos" *ngIf="member?.photos && member.photos.length > 0">
-                    <h4>Current Photos</h4>
-                    <div class="photos-grid">
-                      <div class="photo-item" *ngFor="let photo of member.photos">
-                        <img [src]="photo.url" [alt]="member.knownAs" class="img-thumbnail">
-                        <div class="photo-actions">
-                          <button class="btn btn-sm btn-primary" *ngIf="!photo.isMain"
-                          (click)="setMainPhoto(photo)" [disabled]="photo.isMain"
-                          >
-                            Set Main
-                          </button>
-                          <button class="btn btn-sm btn-danger" *ngIf="!photo.isMain"
-                          (click)="deletePhoto(photo.id)" [disabled]="photo.isMain"
-                          >
-                            Delete
-                          </button>
-                          <span class="badge badge-success" *ngIf="photo.isMain">Main</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      <!-- Current Photos Grid -->
+      <div *ngIf="member?.photos?.length" class="current-photos mt-4">
+        <h5 class="mb-3">Current Photos</h5>
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-3" *ngFor="let photo of member.photos">
+            <div class="card h-100 border shadow-sm">
+              <img [src]="photo.url" class="card-img-top img-fluid" [alt]="member.knownAs">
+              <div class="card-body p-2 text-center">
+                <span *ngIf="photo.isMain" class="badge bg-success mb-2">Main</span>
+                <span *ngIf="!photo.isApproved" class="badge bg-warning text-dark mb-2">Awaiting Approval</span>
+                <div class="d-grid gap-2" *ngIf="!photo.isMain && photo.isApproved">
+                  <button class="btn btn-sm btn-outline-primary" (click)="setMainPhoto(photo)">
+                    Set as Main
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deletePhoto(photo.id)">
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>

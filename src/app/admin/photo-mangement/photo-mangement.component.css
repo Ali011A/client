@@ -1,0 +1,39 @@
+.photo-card {
+  width: 100%;
+  max-width: 250px;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.photo-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.photo-info {
+  margin-top: 1rem;
+}
+
+.btn-group .btn {
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #198754;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}

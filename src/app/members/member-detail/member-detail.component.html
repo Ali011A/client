@@ -144,16 +144,32 @@
  <p>{{member.interests}}</p>
 
 </tab>
-<tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
+<!-- <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
 
 
-  <!-- <div class="photo-gallery">
-</div> -->
-  @if(photoTab.active) {
+<div class="photo-gallery">
+ @if(photoTab.active) {
 <gallery [items]="images" class="gallery" ></gallery>
   }
+   </div>
+ 
 
+</tab> -->
+<tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
+  <div class="photo-gallery-container" *ngIf="photoTab.active">
+    <ng-container *ngIf="images.length > 0; else noPhotos">
+      <gallery [items]="images" class="gallery"></gallery>
+    </ng-container>
+
+    <ng-template #noPhotos>
+      <div class="no-photos-message">
+        <i class="fas fa-image-slash"></i>
+        <p>لا توجد صور لعرضها حالياً.</p>
+      </div>
+    </ng-template>
+  </div>
 </tab>
+
 <tab heading="Messages" (selectTab)="onTabActivated($event)">
 <app-member-messages [username]="member.userName"
 
