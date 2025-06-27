@@ -1,0 +1,44 @@
+<div class="login-container animated fadeIn">
+  <div class="login-card shadow-lg glass-effect p-4">
+    <h2 class="text-center mb-4 text-white">
+      👋 مرحبًا بعودتك!
+    </h2>
+    
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <!-- Username -->
+      <div class="input-group mb-3">
+        <span class="input-group-text bg-transparent text-white">
+          <i class="fas fa-user"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control bg-transparent text-white"
+          name="username"
+          [(ngModel)]="model.userName"
+          placeholder="اسم المستخدم"
+          required />
+      </div>
+
+      <!-- Password -->
+      <div class="input-group mb-4">
+        <span class="input-group-text bg-transparent text-white">
+          <i class="fas fa-lock"></i>
+        </span>
+        <input
+          type="password"
+          class="form-control bg-transparent text-white"
+          name="password"
+          [(ngModel)]="model.password"
+          placeholder="كلمة المرور"
+          required />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+        </button>
+      </div>
+    </form>
+  </div>
+</div>  

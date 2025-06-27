@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-     "postinstall": "patch-package"
+    "postinstall": "patch-package"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +22,7 @@
     "@angular/router": "^19.1.0",
     "@microsoft/signalr": "^8.0.7",
     "bootstrap": "^5.3.6",
+    "crypto-js": "^4.2.0",
     "font-awesome": "^4.7.0",
     "ng-gallery": "^11.0.0",
     "ng2-file-upload": "^8.0.0",
@@ -37,6 +38,7 @@
     "@angular-devkit/build-angular": "^19.1.4",
     "@angular/cli": "^19.1.4",
     "@angular/compiler-cli": "^19.1.0",
+    "@types/crypto-js": "^4.2.2",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^24.0.3",
     "jasmine-core": "~5.5.0",

@@ -1,0 +1,47 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05); /* glass effect */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input, .input-group-text {
+  border: none !important;
+}
+
+input:focus {
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #fff;
+}
+
+/* Fade animation */
+.animated {
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

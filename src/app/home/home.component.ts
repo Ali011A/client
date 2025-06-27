@@ -5,10 +5,11 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { RegisterComponent } from "../register/register.component";
 import { HttpClient } from '@angular/common/http';
 import { AccountService } from '../_services/account.service';
+import { LoginComponent } from '../Login/login/login.component';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, NgIf, RegisterComponent],
+  imports: [FormsModule, NgIf, RegisterComponent,LoginComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -24,6 +25,28 @@ export class HomeComponent  implements OnInit, OnDestroy {
   users: any;
    model:any={};
   http=inject(HttpClient);
+
+loginMode = false;
+
+showRegisterMode() {
+  this.registerMode = true;
+  this.loginMode = false;
+}
+
+showLoginMode() {
+  this.loginMode = true;
+  this.registerMode = false;
+}
+
+showWelcomeMode() {
+  this.loginMode = false;
+  this.registerMode = false;
+}
+
+// onButtonClick(event: Event) {
+//   event.stopPropagation();
+// }
+
   getUsers() {
    this.http.get('https://localhost:7202/api/users').subscribe({
       next: (response) => {
@@ -64,13 +87,13 @@ export class HomeComponent  implements OnInit, OnDestroy {
     this.registerMode = !this.registerMode;
   }
 
-  showWelcomeMode(): void {
-    this.registerMode = false;
-  }
+  // showWelcomeMode(): void {
+  //   this.registerMode = false;
+  // }
 
-  showRegisterMode(): void {
-    this.registerMode = true;
-  }
+  // showRegisterMode(): void {
+  //   this.registerMode = true;
+  // }
 
   showLearnMore(): void {
     alert('مرحباً بك في تطبيق المواعدة الأكثر أماناً وموثوقية! انضم إلينا اليوم واكتشف عالماً من الفرص للعثور على الحب الحقيقي.');
@@ -88,6 +111,7 @@ export class HomeComponent  implements OnInit, OnDestroy {
   // }
 
   private createParticles(): void {
+
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
       for (let i = 0; i < 50; i++) {
@@ -127,6 +151,7 @@ export class HomeComponent  implements OnInit, OnDestroy {
   // }
 
   onButtonClick(event: Event): void {
+      event.stopPropagation();
     const target = event.target as HTMLElement;
     if (target.classList.contains('btn')) {
       const ripple = document.createElement('div');

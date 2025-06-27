@@ -1,13 +1,36 @@
+
+/* 🌈 Global Styles */
 body {
-  background-color: #f8f6ff;
+  background: linear-gradient(to right, #f8f6ff, #f0e6ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
+/* 🌟 Member Card */
 .member-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
 }
+
 .member-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-img-top {
@@ -16,36 +39,48 @@ body {
   height: 200px;
 }
 
-.card-title {
-  font-weight: bold;
-}
-
-.card-text {
-  font-size: 0.9rem;
-}
-
-.age-badge {
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-}
-
-.filter-group {
-  flex-basis: calc(25% - 1rem);
-  max-width: 100%;
+/* 🧾 Filters */
+form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .filter-group label {
   font-weight: bold;
 }
 
+@media (max-width: 576px) {
+  .filter-group {
+    flex-basis: 100%;
+  }
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* ✨ Buttons */
+.btn {
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 12px 24px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 15px rgba(111, 66, 193, 0.15);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
 .btn-primary {
   background-color: #6f42c1;
   border-color: #6f42c1;
+  color: white;
 }
+
 .btn-primary:hover {
   background-color: #5a36a7;
 }
@@ -53,40 +88,22 @@ body {
 .btn-secondary {
   background-color: #e83e8c;
   border-color: #e83e8c;
+  color: white;
 }
+
 .btn-secondary:hover {
   background-color: #d6337d;
 }
 
-.btn-info {
-  background-color: #0dcaf0;
-  border-color: #0dcaf0;
-}
-.btn-info:hover {
-  background-color: #0b9fe8;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-.btn-danger:hover {
-  background-color: #c82333;
-}
-
-/* Custom Pagination Design */
+/* 📱 Pagination */
 ::ng-deep .custom-pagination {
   display: inline-flex;
   list-style: none;
   padding: 0;
   margin: 0;
-  border-radius: 50px; /* زوايا مستديرة */
+  border-radius: 50px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-::ng-deep .custom-pagination li {
-  margin: 0 4px;
 }
 
 ::ng-deep .custom-pagination li a,
@@ -98,7 +115,7 @@ body {
   height: 36px;
   padding: 0 10px;
   font-size: 0.9rem;
-  color: #6f42c1; /* لون رئيسي (بنفسجي) */
+  color: #6f42c1;
   background-color: #f8f6ff;
   border-radius: 50%;
   transition: all 0.3s ease;
@@ -121,15 +138,13 @@ body {
   background-color: #f8f6ff;
 }
 
-/* تخصيص الأزرار الخاصة بالأسهم */
 ::ng-deep .custom-pagination .pagination-first a,
 ::ng-deep .custom-pagination .pagination-prev a,
 ::ng-deep .custom-pagination .pagination-next a,
 ::ng-deep .custom-pagination .pagination-last a {
-  color: #6f42c1; /* لون رئيسي (بنفسجي) */
+  color: #6f42c1;
   background-color: #f8f6ff;
   border-radius: 50%;
-  transition: all 0.3s ease;
 }
 
 ::ng-deep .custom-pagination .pagination-first a:hover,
@@ -138,29 +153,8 @@ body {
 ::ng-deep .custom-pagination .pagination-last a:hover {
   background-color: #6f42c1;
   color: white;
-  border-color: #6f42c1;
 }
 
-/* تخصيص الأزرار غير النشطة */
-::ng-deep .custom-pagination .pagination-first.disabled a,
-::ng-deep .custom-pagination .pagination-prev.disabled a,
-::ng-deep .custom-pagination .pagination-next.disabled a,
-::ng-deep .custom-pagination .pagination-last.disabled a {
-  color: #ccc;
-  pointer-events: none;
-  background-color: #f8f6ff;
-  opacity: 0.5; /* تقليل الشفافية */
-}
-
-/* تخصيص الأزرار النشطة */
-::ng-deep .custom-pagination .page-item.active .page-link {
-  background-color: #6f42c1;
-  color: white;
-  border-color: #6f42c1;
-  box-shadow: 0 2px 8px rgba(111, 66, 193, 0.5); /* ظل بنفسجي فاتح */
-}
-
-/* Optional: Make it smaller on mobile */
 @media (max-width: 768px) {
   ::ng-deep .custom-pagination li a,
   ::ng-deep .custom-pagination li span {
@@ -168,4 +162,11 @@ body {
     height: 30px;
     font-size: 0.8rem;
   }
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 30px 15px;
 }

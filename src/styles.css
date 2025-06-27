@@ -39,3 +39,31 @@ app-home {
   min-height: 100vh;
   width: 100%;
 }
+
+/* ✅ Custom Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff6b81, #f06595);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f06595, #ff6b81);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f06595 rgba(255, 255, 255, 0.05);
+}
+
+

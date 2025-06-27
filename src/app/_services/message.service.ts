@@ -1,3 +1,4 @@
+
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +8,7 @@ import { setPaginationHeaders, setPaginationResponse } from './PaginationHelper'
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { User } from '../_models/user';
 import { Group } from '../_models/group';
-
+import * as CryptoJS from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,11 @@ export class MessageService {
 messageThreadSource=signal<Message[]>([]);
 typingUserSignal = signal<string | null>(null);
 typingTimeout?: any;
+private currentUser?: User;
+
+setCurrentUser(user: User) {
+  this.currentUser = user;
+}
 createHubConnection(user:User,otherUsername:string){
 this.hubConnection=new HubConnectionBuilder()
 .withUrl(this.hubUrl+'message?user='+otherUsername,{
@@ -32,14 +38,16 @@ this.hubConnection=new HubConnectionBuilder()
 this.hubConnection
 .start()
 .catch(error=>console.log(error));
-this.hubConnection.on('ReceiveMessageThread',messages=>{
-  this.messageThreadSource.set(messages);
+this.hubConnection.on('ReceiveMessageThread', (messages: Message[]) => {
+    this.messageThreadSource.set(messages);
+ // const decryptedMessages = messages.map((m: Message) => this.decryptMessage(m));
+ // this.messageThreadSource.set(decryptedMessages);
 });
-this.hubConnection.on('NewMessage',message=>{
-  this.messageThreadSource.update(messages=>[message,...messages]);
-});
+
  this.hubConnection.on('NewMessage', message => {
-    this.messageThreadSource.update(messages => [message, ...messages]);
+    this.messageThreadSource.update(messages => [...messages, message]);
+  //    const decrypted = this.decryptMessage(message);
+  // this.messageThreadSource.update(messages => [decrypted, ...messages]);
   });
 this.hubConnection.on('UpdatedGroup', (group: Group) => {
   if (group.connections.some(x => x.username === otherUsername)) {
@@ -88,12 +96,47 @@ return this.http.get<Message[]>
 getMessageThread(username:string){
   return this.http.get<Message[]>(this.baseUrl+'messages/thread/'+username);
 }
+private decryptMessage(message: Message): Message {
+  const sharedKey = this.getSharedKey(message.senderUsername, message.recipientUsername);
+
+  try {
+    // quick check: is it a valid base64? (AES output should be base64)
+    if (!/^[A-Za-z0-9+/=]+$/.test(message.content)) {
+      return message; // not encrypted → return as-is
+    }
+
+    const decryptedBytes = CryptoJS.AES.decrypt(message.content, sharedKey);
+    const originalText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+    if (!originalText) {
+      return message; // fallback if decryption fails silently
+    }
+
+    return { ...message, content: originalText };
+  } catch (e) {
+    console.error('❌ Failed to decrypt message:', e);
+    return message;
+  }
+}
 
  async sendMessage(username:string,content:string){
   //return this.http.post<Message>(this.baseUrl+'messages',{recipientUsername:username,content});
-  return this.hubConnection?.invoke('SendMessage', {recipientUsername:username,content})
+ return this.hubConnection?.invoke('SendMessage', {recipientUsername:username,content})
+// if (!this.currentUser?.username) return;
+
+//   const sharedKey = this.getSharedKey(username, this.currentUser.username);
+//   const encryptedContent = CryptoJS.AES.encrypt(content, sharedKey).toString();
+//   console.log('Encrypted content:', encryptedContent);
+//   return this.hubConnection?.invoke('SendMessage', {
+//     recipientUsername: username,
+//     content: encryptedContent
+//   });
 }
 
+private getSharedKey(user1: string, user2: string): string {
+  const sorted = [user1, user2].sort(); // to ensure same key on both sides
+  return sorted.join('-secret-key');
+}
 deleteMessage(id:number){
   return this.http.delete(this.baseUrl+'messages/'+id);
 }

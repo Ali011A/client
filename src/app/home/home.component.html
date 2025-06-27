@@ -34,75 +34,76 @@
 
 
 
-<div class="floating-particles" id="particles"></div>
+<!-- <div class="floating-particles" id="particles"></div> -->
 
     <!-- <button class="toggle-btn" (click)="toggleMode()">
       <i class="fas fa-exchange-alt"></i> تبديل الوضع
     </button> -->
 
+ 
     <div class="main-container">
-      <div class="main-content">
-        <!-- Welcome Mode -->
-        <div *ngIf="!registerMode" class="welcome-section">
-          <div class="welcome-content">
-            <h1><i class="fas fa-heart"></i> ابحث عن شريك حياتك</h1>
-            <p class="lead">انضم إلينا لتكتشف عالماً مليئاً بالفرص للعثور على الحب الحقيقي... كل ما تحتاجه هو التسجيل!</p>
-            <div class="button-group">
-              <button
-                class="btn btn-primary"
-                (click)="showRegisterMode(); onButtonClick($event)">
-                <i class="fas fa-user-plus"></i> سجل الآن
-              </button>
-              <button
-                class="btn btn-info"
-                (click)="showLearnMore(); onButtonClick($event)">
-                <i class="fas fa-info-circle"></i> اعرف المزيد
-              </button>
-            </div>
-          </div>
-        </div>
+  <div class="main-content">
 
-        <!-- Register Mode (click)="submitRegistration(); onButtonClick($event)" -->
-        <div *ngIf="registerMode">
-          <div class="welcome-section">
-            <h1><i class="fas fa-heart"></i> ابحث عن شريك حياتك</h1>
-          </div>
-          <div class="features-section">
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="fas fa-search"></i>
-              </div>
-              <h3>ابحث عن شريكك المثالي</h3>
-              <p>استخدم أدوات البحث المتقدمة للعثور على الأشخاص المناسبين لك بناءً على اهتماماتك وقيمك.</p>
-         <app-register [userFromHomeComponent]="users"></app-register>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="fas fa-comments"></i>
-              </div>
-              <h3>تواصل مع الآخرين</h3>
-              <p>انخرط في محادثات هادفة وبناء علاقات مع أشخاص يشاركونك نفس التفكير والاهتمامات.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="fas fa-shield-alt"></i>
-              </div>
-              <h3>ابق آمناً</h3>
-              <p>سلامتك هي أولويتنا. نوفر أدوات لضمان تجربة مواعدة آمنة ومحمية بأعلى معايير الأمان.</p>
-            </div>
-          </div>
-          <div class="button-group register-buttons">
-            <button
-              class="btn btn-primary"
-                >
-              <i class="fas fa-heart"></i> ابدأ رحلة الحب
-            </button>
-            <button
-              class="btn btn-info"
-              (click)="showWelcomeMode(); onButtonClick($event)">
-              <i class="fas fa-arrow-left"></i> العودة
-            </button>
-          </div>
+    <!-- ✅ Welcome Mode -->
+    <div *ngIf="!registerMode && !loginMode" class="welcome-section fade-in">
+      <div class="welcome-content">
+        <h1><i class="fas fa-heart"></i> ابحث عن شريك حياتك</h1>
+        <p class="lead">
+          انضم إلينا لتكتشف عالماً مليئاً بالفرص للعثور على الحب الحقيقي...
+          كل ما تحتاجه هو التسجيل!
+        </p>
+        <div class="button-group">
+          <button class="btn btn-primary" (click)="showRegisterMode(); onButtonClick($event)">
+            <i class="fas fa-user-plus"></i> سجل الآن
+          </button>
+          <button class="btn btn-info" (click)="showLoginMode(); onButtonClick($event)">
+            <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- ✅ Register Mode -->
+    <div *ngIf="registerMode" class="fade-in">
+      <app-register [userFromHomeComponent]="users"></app-register>
+
+      <div class="features-section mt-5">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-search"></i></div>
+          <h3>ابحث عن شريكك المثالي</h3>
+          <p>استخدم أدوات البحث للعثور على الأشخاص المناسبين لك.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comments"></i></div>
+          <h3>تواصل مع الآخرين</h3>
+          <p>محادثات هادفة وعلاقات ذات معنى مع أشخاص يشاركونك الاهتمامات.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>ابق آمناً</h3>
+          <p>نضمن لك تجربة آمنة ومحمية بأحدث تقنيات الأمان.</p>
+        </div>
+      </div>
+
+      <div class="button-group text-center mt-4">
+        <button class="btn btn-info" (click)="showWelcomeMode(); onButtonClick($event)">
+          <i class="fas fa-arrow-left"></i> العودة
+        </button>
+      </div>
+    </div>
+
+    <!-- ✅ Login Mode -->
+    <div *ngIf="loginMode" class="fade-in">
+      <app-login (cancel)="showWelcomeMode()"></app-login>
+
+      <div class="button-group text-center mt-4">
+        <button class="btn btn-info" (click)="showWelcomeMode(); onButtonClick($event)">
+          <i class="fas fa-arrow-left"></i> العودة
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

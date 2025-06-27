@@ -1,4 +1,19 @@
 
+/* .full-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* .push-from-navbar {
+  padding-top: 55px;
+} */
+
+/* Full Container يبقى زي ما هو */
 .full-container {
   width: 100vw;
   height: 100vh;
@@ -9,6 +24,32 @@
   justify-content: center;
 }
 
+/* Navbar padding */
 .push-from-navbar {
-  padding-top: 55px; /* عدّل حسب ارتفاع النافبار */
+  padding-top: 55px;
+}
+
+/* عند عدم وجود نافبار، نشيل البادينج */
+:host-context(body:not(.has-navbar)) .push-from-navbar {
+  padding-top: 0;
+}
+
+/* Scrollbar عصري */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff6b81, #a29bfe);
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff4757, #6c5ce7);
 }

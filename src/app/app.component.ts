@@ -6,10 +6,11 @@ import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
 import { filter } from 'rxjs';
 import { NgxSpinnerComponent } from 'ngx-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, HomeComponent,NgxSpinnerComponent],
+  imports: [RouterOutlet, NavComponent, HomeComponent,NgxSpinnerComponent,NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -22,7 +23,14 @@ private accountService=inject(AccountService);
     private router = inject(Router);
    hideNav = false;
     ngOnInit(): void {
-
+ this.router.events.subscribe(() => {
+    const showNav = this.shouldShowNav();
+    if (showNav) {
+      document.body.classList.add('has-navbar');
+    } else {
+      document.body.classList.remove('has-navbar');
+    }
+  });
     this.serCurrentUser();
       this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -33,7 +41,15 @@ private accountService=inject(AccountService);
     });
 
   }
+ shouldShowNav(): boolean {
+    const currentUrl = this.router.url;
+    const user = this.accountService.currentUser();
 
+    // ✅ يظهر الـ navbar إذا:
+    // - المستخدم مسجل دخول
+    // - أو المستخدم مش مسجل دخول لكن بيحاول يعمل login
+    return !!user || currentUrl !== '/';
+  }
   serCurrentUser() {
     const userString = localStorage.getItem('user');
     if (userString) {

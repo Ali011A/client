@@ -18,8 +18,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
               validationErrors.forEach(err => toastr.error(err, 'خطأ في الطلب'));
             } else if (typeof error.error === 'string') {
               toastr.error(error.error, 'خطأ في الطلب');
+              router.navigateByUrl('/server-error');
             } else {
               toastr.error('حدث خطأ غير متوقع', 'خطأ في الطلب');
+              router.navigateByUrl('/server-error');
             }
             break;
           case 401:

@@ -8,15 +8,24 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-
+<!-- 
 <ngx-spinner type="line-scale-party">
  <h3>Loading...</h3>
 </ngx-spinner>
 <app-nav></app-nav>
 <div class="push-from-navbar">
   <router-outlet></router-outlet>
-</div>
+</div> -->
+<ngx-spinner type="line-scale-party">
+  <h3>Loading...</h3>
+</ngx-spinner>
 
+<!-- ✅ navbar يظهر فقط حسب الشرط -->
+<app-nav *ngIf="shouldShowNav()"></app-nav>
+
+<div class="push-from-navbar">
+  <router-outlet></router-outlet>
+</div>
 
 
 
