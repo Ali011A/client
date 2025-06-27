@@ -16,13 +16,16 @@
          <li class="nav-item">
           <a  routerLink="/message" routerLinkActive="active"  class="nav-link " >Messages</a>
            </li>
+            <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a  routerLink="/admin" routerLinkActive="active"  class="nav-link " >Admin</a>
+           </li>
         }
       </ul>
 
 
 @if(accountService.currentUser()){
 <div dropdown class="dropdown">
-<img src="{{accountService.currentUser()?.photoUrl || '/src/assets/user.png' }}  "
+<img [src]="accountService.currentUser()?.photoUrl ?? '/assets/user.png'" 
  class=" rounded-circle me-2" width="40" height="40" alt="User Avatar">
   <a dropdownToggle class="dropdown-toggle text-light  text-decoration-none"
    >

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Routes } from '@angular/router';
+import { Routes, CanActivateFn } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -11,6 +11,9 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { memberDetailedResolver } from './_resolvers/member-detailed.resolver';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { adminGuard } from './_guards/admin.guard';
 
 export const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -20,11 +23,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
 {path:'members',component:MemberListComponent},
-{path:'members/:username',component:MemberDetailComponent },
+{path:'members/:username',component:MemberDetailComponent,resolve
+  :{member:memberDetailedResolver}
+ },
 {path:'member/edit',component:MemberEditComponent,canDeactivate:[preventUnsavedChangesGuard]},
 {path:'message',component:MessagesComponent},
 {path:'lists',component:ListsComponent},
-    ]
+{path:'admin',component:AdminPanelComponent,canActivate:[adminGuard]},    
+]
   },
   {path:'error', component: TestErrorsComponent},
   { path: 'server-error', component: ServerErrorComponent },

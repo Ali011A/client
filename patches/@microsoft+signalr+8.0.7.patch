@@ -1,0 +1,65 @@
+diff --git a/node_modules/@microsoft/signalr/src/AccessTokenHttpClient.ts b/node_modules/@microsoft/signalr/src/AccessTokenHttpClient.ts
+index e28c988..e18a078 100644
+--- a/node_modules/@microsoft/signalr/src/AccessTokenHttpClient.ts
++++ b/node_modules/@microsoft/signalr/src/AccessTokenHttpClient.ts
+@@ -50,7 +50,7 @@ export class AccessTokenHttpClient extends HttpClient {
+         }
+     }
+ 
+-    public getCookieString(url: string): string {
++    override  getCookieString(url: string): string {
+         return this._innerClient.getCookieString(url);
+     }
+ }
+\ No newline at end of file
+diff --git a/node_modules/@microsoft/signalr/src/DefaultHttpClient.ts b/node_modules/@microsoft/signalr/src/DefaultHttpClient.ts
+index cd1dcfa..d214f1f 100644
+--- a/node_modules/@microsoft/signalr/src/DefaultHttpClient.ts
++++ b/node_modules/@microsoft/signalr/src/DefaultHttpClient.ts
+@@ -42,7 +42,7 @@ export class DefaultHttpClient extends HttpClient {
+         return this._httpClient.send(request);
+     }
+ 
+-    public getCookieString(url: string): string {
++    override  getCookieString(url: string): string {
+         return this._httpClient.getCookieString(url);
+     }
+ }
+diff --git a/node_modules/@microsoft/signalr/src/FetchHttpClient.ts b/node_modules/@microsoft/signalr/src/FetchHttpClient.ts
+index d6a94fc..683e191 100644
+--- a/node_modules/@microsoft/signalr/src/FetchHttpClient.ts
++++ b/node_modules/@microsoft/signalr/src/FetchHttpClient.ts
+@@ -153,7 +153,7 @@ export class FetchHttpClient extends HttpClient {
+         );
+     }
+ 
+-    public getCookieString(url: string): string {
++    override  getCookieString(url: string): string {
+         let cookies: string = "";
+         if (Platform.isNode && this._jar) {
+             // @ts-ignore: unused variable
+diff --git a/node_modules/@microsoft/signalr/src/HubConnection.ts b/node_modules/@microsoft/signalr/src/HubConnection.ts
+index 4ea7a78..68b71c0 100644
+--- a/node_modules/@microsoft/signalr/src/HubConnection.ts
++++ b/node_modules/@microsoft/signalr/src/HubConnection.ts
+@@ -272,6 +272,7 @@ export class HubConnection {
+                     if (this._messageBuffer) {
+                         return this._messageBuffer._resend();
+                     }
++                    return;
+                 }
+             }
+ 
+diff --git a/node_modules/@microsoft/signalr/src/ServerSentEventsTransport.ts b/node_modules/@microsoft/signalr/src/ServerSentEventsTransport.ts
+index 8b962e0..3d08a1f 100644
+--- a/node_modules/@microsoft/signalr/src/ServerSentEventsTransport.ts
++++ b/node_modules/@microsoft/signalr/src/ServerSentEventsTransport.ts
+@@ -59,7 +59,7 @@ export class ServerSentEventsTransport implements ITransport {
+                 // Non-browser passes cookies via the dictionary
+                 const cookies = this._httpClient.getCookieString(url);
+                 const headers: MessageHeaders = {};
+-                headers.Cookie = cookies;
++               headers['Cookie'] = cookies;
+                 const [name, value] = getUserAgentHeader();
+                 headers[name] = value;
+ 

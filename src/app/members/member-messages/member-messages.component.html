@@ -1,0 +1,82 @@
+<div class="container-fluid messages-container">
+  <div class="row">
+    <!-- Header -->
+    <div class="col-12 mb-4">
+      <h3 class="text-center text-primary">{{ username() }}'s Messages</h3>
+    </div>
+<!-- ✅ Typing Indicator هنا -->
+<div *ngIf="typingUser()" class="text-muted mb-3 text-center typing-indicator">
+  <em>{{ typingUser() }} is typing...</em>
+</div>
+    <!-- Message List -->
+    <div class="col-12 flex-grow-1 overflow-auto d-flex flex-column message-list"
+  style="min-height: 0;" #messageList>
+      @for (message of messageService.messageThreadSource(); track message.id) {
+        <div class="message-card card shadow-sm mb-3" [class.sent]="message.senderUsername === username()">
+          <div class="card-body p-3">
+            <div class="d-flex align-items-start">
+              <!-- Avatar -->
+              <div class="avatar-section me-3">
+                <img
+                  [src]="message.senderPhotoUrl || './src/assets/user.png'"
+                  alt="{{ message.senderUsername }}'s Photo"
+                  class="rounded-circle avatar-img"
+                  style="width: 50px; height: 50px;"
+                />
+              </div>
+
+              <!-- Message Content -->
+              <div class="message-content flex-grow-1">
+                <div class="message-header d-flex justify-content-between">
+                  <h5 class="mb-1">{{ message.senderUsername }}</h5>
+                  <small class="text-muted">{{ message.messageSent | timeago }}</small>
+                </div>
+                <p class="message-text mb-0">{{ message.content }}</p>
+                  <!-- Read Status Indicator -->
+        <div class="text-end mt-1">
+          <small *ngIf="message.dateRead; else notRead" class="text-success">
+            <i class="fa fa-check-double"></i> Read
+          </small>
+          <ng-template #notRead>
+            <small class="text-secondary">
+              <i class="fa fa-check"></i> Sent
+            </small>
+          </ng-template>
+        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Send Message Section -->
+<div class="col-12 mt-4">
+  <form #messageForm="ngForm" (ngSubmit)="sendMessage()" >
+    <div class="input-group mb-3 send-message-container rounded-pill overflow-hidden shadow-sm">
+      <input
+ (input)="onTyping()"
+        type="text"
+        class="form-control border-0 ps-4 py-3"
+        placeholder="Write your message..."
+       [(ngModel)]="messageContent"
+        name="messageContent"
+        required
+
+      >
+      <button
+        class="btn btn-primary rounded-circle me-2 d-flex align-items-center justify-content-center"
+        type="submit"
+[disabled]="!messageForm.valid"
+      >
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </div>
+
+
+  </form>
+</div>
+  </div>
+</div>
+
+

@@ -1,4 +1,4 @@
-@if(member) {
+
 <div class="member-detail-container">
 
   <!-- البطاقة -->
@@ -23,6 +23,9 @@
 
       <h1 class="member-name">{{ member.knownAs }}</h1>
       <p class="member-title">{{ member.userName }}</p>
+      @if(presenceService.onlineUsers().includes(member.userName)){
+        <i class="fa fa-circle online" style="" ></i> Online
+      }
       <p class="last-active">
         Last seen {{ member.lastActive|timeago}}
       </p>
@@ -82,7 +85,7 @@
 
         <!-- الاهتمامات -->
 
-        @if(member.interests?.length) {
+        <!-- @if(member.interests?.length) {
   <div class="info-card">
     <div class="info-icon">💝</div>
     <div>
@@ -96,12 +99,12 @@
       </div>
     </div>
   </div>
-}
+} -->
       </div>
 
       <!-- الأزرار -->
       <div class="action-buttons">
-        <button class="btn btn-primary">
+        <button  (click)="selectTab('Messages')" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24">
             <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
           </svg>
@@ -128,20 +131,20 @@
   <!-- المساحة الفارغة -->
   <div class="member-tabs-container">
     <!-- محتوى إضافي يمكن إضافته هنا لاحقاً -->
-    <tabset class="member-tabs" >
-<tab heading="About{{member.knownAs}}">
+    <tabset class="member-tabs" #memberTabs >
+<tab heading="About{{member.knownAs}}" (selectTab)="onTabActivated($event)">
   <h4>Description</h4>
 <p>{{member.introduction}}</p>
 <h4>Looking For</h4>
 <p>{{member.lookingFor}}</p>
 
 </tab>
-<tab heading="Interests">
+<tab heading="Interests" (selectTab)="onTabActivated($event)">
   <h4>Interests</h4>
  <p>{{member.interests}}</p>
 
 </tab>
-<tab heading="Photos" #photoTab="tab">
+<tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
 
 
   <!-- <div class="photo-gallery">
@@ -151,8 +154,10 @@
   }
 
 </tab>
-<tab heading="Messages">
-<p>no message yet</p>
+<tab heading="Messages" (selectTab)="onTabActivated($event)">
+<app-member-messages [username]="member.userName"
+
+></app-member-messages>
 
 </tab>
     </tabset>
@@ -160,4 +165,4 @@
 
   </div>
 </div>
-}
+

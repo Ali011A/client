@@ -1,1 +1,111 @@
-<p>messages works!</p>
+
+ <div class="container-fluid messages-wrapper">
+  <div class="row">
+ 
+    <div class="col-md-3 col-lg-2 sidebar-navigation p-3">
+      <h4 class="mb-3">Your Conversations</h4>
+      <div class="d-flex flex-column nav-pills" role="tablist" aria-orientation="vertical">
+        <button class="btn btn-outline-primary mb-2 w-100 text-start"
+                [class.active]="container === 'Inbox'"
+                (click)="container = 'Inbox'; loadMessages()">
+          Inbox
+        </button>
+        <button class="btn btn-outline-primary mb-2 w-100 text-start"
+                [class.active]="container === 'Outbox'"
+                (click)="container = 'Outbox'; loadMessages()">
+          Outbox
+        </button>
+      </div>
+    </div>
+
+ 
+    <div class="col-md-9 col-lg-10 main-message-content p-4">
+      <header class="messages-header">
+        <h2>{{ container === 'Inbox' ? 'Inbox Messages' : 'Sent Messages' }}</h2>
+        <button class="btn-refresh" (click)="loadMessages()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </header>
+
+ 
+      <div *ngIf="messageService.paginationResult()?.items?.length === 0" class="alert alert-info text-center py-4">
+        No {{ container === 'Inbox' ? 'inbox' : 'sent' }} messages to show. Start a new connection!
+      </div>
+
+    
+   <div *ngIf="messageService.paginationResult()?.items as messages" class="message-list">
+  <div *ngFor="let message of messages" class="message-card"
+       [ngClass]="{
+         'unread': !message.dateRead,
+         'sent-message': container === 'Outbox',
+         'received-message': container === 'Inbox'
+       }">
+
+          <div class="avatar-section">
+            <img
+              [src]="isOutbox ? message.recipientPhotoUrl : message.senderPhotoUrl"
+              alt="User Avatar"
+              class="rounded-circle avatar-img"
+              routerLink="{{getRoute(message)}}"
+              title="View Profile"
+              role="button"
+            />
+          </div>
+
+         
+          <div class="message-content-body">
+            <div class="message-header">
+              <h5 class="mb-0">
+                <a class="profile-link-text"
+                   routerLink="{{getRoute(message)}}"
+                   role="button">
+                  {{ isOutbox ? message.recipientUsername : message.senderUsername }}
+                </a>
+              </h5>
+              <small class="text-muted timestamp">{{ message.messageSent | date:'short' }}</small>
+            </div>
+            <p class="message-text mb-0">{{ message.content }}</p>
+            <div class="message-actions">
+                <button class="btn btn-sm btn-primary view-profile-btn"
+                        routerLink="{{getRoute(message)}}">
+                    View Profile
+                </button>
+                <button *ngIf="container === 'Inbox'"
+                (click)="deleteMessage(message.id)"
+                class="btn btn-sm btn-danger delete-message-btn"
+                       >
+                    Delete
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+       @if(messageService.paginationResult()?.pagination && messageService.paginationResult()?.pagination!.totalPages > 1) {
+    <div class="d-flex justify-content-center mt-4">
+      <pagination 
+        [boundaryLinks]="true" 
+        [totalItems]="messageService.paginationResult()?.pagination!.totalItems"
+        [itemsPerPage]="messageService.paginationResult()?.pagination!.itemsPerPage"
+        [(ngModel)]="messageService.paginationResult()?.pagination!.currentPage"
+        (pageChanged)="onPageChanged($event)"
+        [maxSize]="5"
+        previousText="&lsaquo;" 
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+        class="custom-pagination pagination-sm"
+      >
+      </pagination>
+    </div>
+  }
+    </div>
+  </div>
+</div> 
+
+
+
+
+
+    

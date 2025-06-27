@@ -64,8 +64,8 @@
   transition: all 0.3s ease;
 }
 
-.status-indicator.online {
-  background: #10b981;
+.status-indicator.is-online {
+  background: #16b910;
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
   animation: pulse-online 2s infinite;
 }

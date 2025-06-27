@@ -1,0 +1,41 @@
+/* Container */
+.container {
+  max-width: 960px;
+}
+
+/* Table Styling */
+.table {
+  font-size: 0.95rem;
+}
+
+.table thead th {
+  vertical-align: middle;
+  background-color: #f8f6ff;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f0ff;
+}
+
+/* Role Badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+  border-radius: 1rem;
+}
+
+/* Action Buttons */
+.btn-outline-primary {
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+.btn-outline-primary:hover {
+  background-color: #6f42c1;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Empty State */
+.text-muted.py-4 {
+  font-style: italic;
+}

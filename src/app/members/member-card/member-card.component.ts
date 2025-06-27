@@ -3,6 +3,7 @@ import { Member } from '../../_models/member';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LikesService } from '../../_services/likes.service';
+import { PresenceService } from '../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
@@ -12,9 +13,10 @@ import { LikesService } from '../../_services/likes.service';
 })
 export class MemberCardComponent {
 private likeService=inject(LikesService);
+private presenceService=inject(PresenceService);
   member=input.required<Member>();
 hasLiked = computed(()=>this.likeService.likeIds().includes(this.member().id));
-
+isOnline=computed(()=>this.presenceService.onlineUsers().includes(this.member().userName));
  // Output events
   cardClicked = output<Member>();
   profileViewed = output<Member>();
@@ -28,16 +30,16 @@ hasLiked = computed(()=>this.likeService.likeIds().includes(this.member().id));
    * Check if member is currently online
    * Based on lastActive being within last 5 minutes
    */
-  isOnline(): boolean {
-    const member = this.member();
-    if (!member.lastActive) return false;
+  // isOnline(): boolean {
+  //   const member = this.member();
+  //   if (!member.lastActive) return false;
     
-    const now = new Date();
-    const lastActive = new Date(member.lastActive);
-    const diffInMinutes = (now.getTime() - lastActive.getTime()) / (1000 * 60);
+  //   const now = new Date();
+  //   const lastActive = new Date(member.lastActive);
+  //   const diffInMinutes = (now.getTime() - lastActive.getTime()) / (1000 * 60);
     
-    return diffInMinutes <= 5;
-  }
+  //   return diffInMinutes <= 5;
+  // }
 
   toggleLike(){
     this.likeService.toggleLike(this.member().id).subscribe({

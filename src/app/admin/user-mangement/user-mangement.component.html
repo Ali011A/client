@@ -1,0 +1,45 @@
+<div class="container py-4">
+  <h3 class="text-center mb-4">User Management</h3>
+
+  <!-- Users Table -->
+  <div class="table-responsive shadow-sm rounded-3 overflow-hidden">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Username</th>
+  
+          <th scope="col">Roles</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.username) {
+          <tr>
+            <td class="fw-bold">{{ user.username }}</td>
+           
+            <td>
+             
+                {{ user.roles }}
+             
+            </td>
+            <td>
+              <button 
+                class="btn btn-outline-primary btn-sm" 
+                (click)="openRolesModal(user)">
+                <i class="fa fa-user-shield"></i> Edit Roles
+              </button>
+            </td>
+          </tr>
+        }
+
+        @if (!users.length) {
+          <tr>
+            <td colspan="4" class="text-center text-muted py-4">
+              No users found
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
