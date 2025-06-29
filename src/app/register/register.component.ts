@@ -31,6 +31,7 @@ private toaster=inject(ToastrService);
     this.registerForm = new FormGroup({
       gender: new FormControl('male'),
       username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       knownAs:new FormControl('',[Validators.required]),
       dateOfBirth:new FormControl('',[Validators.required]),
       city:new FormControl('',[Validators.required]),
@@ -59,16 +60,17 @@ private toaster=inject(ToastrService);
 register() {
 
 
+ if (this.registerForm.invalid) return;
 
+  const formValue = this.registerForm.value;
   // Here you would typically call a service to handle the registration logic
- this.accountService.register(this.model).subscribe({
+ this.accountService.register(formValue).subscribe({
+
    next: (response) => {
-     console.log('Registration successful:', response);
+     //console.log('Registration successful:', response);
  this.router.navigateByUrl('/members');
-     this.toaster.success(`مرحباً ${this.model.username}! تم تسجيلك بنجاح. مرحباً بك في عائلتنا! 💖`);
-     // Optionally, you can reset the form or navigate to a different page
-      // this.registrationForm.reset();
-      // this.router.navigate(['/welcome']);
+    this.toaster.success(`مرحباً ${formValue.username}! تم تسجيلك بنجاح. 💖`);
+   
 
    },
     error: (error) => {

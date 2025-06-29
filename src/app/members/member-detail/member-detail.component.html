@@ -24,7 +24,7 @@
       <h1 class="member-name">{{ member.knownAs }}</h1>
       <p class="member-title">{{ member.userName }}</p>
       @if(presenceService.onlineUsers().includes(member.userName)){
-        <i class="fa fa-circle online" style="" ></i> Online
+        <i class="fa fa-circle online" style="color: green" ></i> Online
       }
       <p class="last-active">
         Last seen {{ member.lastActive|timeago}}

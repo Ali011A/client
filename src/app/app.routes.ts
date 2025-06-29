@@ -14,6 +14,9 @@ import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { memberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { adminGuard } from './_guards/admin.guard';
+import { ResetPasswordComponent } from './Auth/reset-password/reset-password.component';
+import { ResetSuccessComponent } from './Auth/reset-success/reset-success.component';
+import { ForgotPasswordComponent } from './Auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -31,7 +34,9 @@ export const routes: Routes = [
 {path:'lists',component:ListsComponent},
 {path:'admin',component:AdminPanelComponent,canActivate:[adminGuard]},    
 ]
-  },
+  }, { path: 'reset-password', component: ResetPasswordComponent},
+  { path: 'reset-success', component: ResetSuccessComponent},
+  {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'error', component: TestErrorsComponent},
   { path: 'server-error', component: ServerErrorComponent },
   { path: '404', component: NotFoundComponent},

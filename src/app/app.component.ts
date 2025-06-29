@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, HomeComponent,NgxSpinnerComponent,NgIf],
+  imports: [RouterOutlet, NavComponent,NgxSpinnerComponent,NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -7,7 +7,7 @@ import { PresenceService } from '../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
-  imports: [NgFor,NgIf,RouterLink],
+  imports: [RouterLink],
   templateUrl: './member-card.component.html',
   styleUrl: './member-card.component.css'
 })

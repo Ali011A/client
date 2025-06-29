@@ -8,7 +8,7 @@ import { setPaginationHeaders, setPaginationResponse } from './PaginationHelper'
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { User } from '../_models/user';
 import { Group } from '../_models/group';
-import * as CryptoJS from 'crypto-js';
+//import * as CryptoJS from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
@@ -96,28 +96,28 @@ return this.http.get<Message[]>
 getMessageThread(username:string){
   return this.http.get<Message[]>(this.baseUrl+'messages/thread/'+username);
 }
-private decryptMessage(message: Message): Message {
-  const sharedKey = this.getSharedKey(message.senderUsername, message.recipientUsername);
+// private decryptMessage(message: Message): Message {
+//   const sharedKey = this.getSharedKey(message.senderUsername, message.recipientUsername);
 
-  try {
-    // quick check: is it a valid base64? (AES output should be base64)
-    if (!/^[A-Za-z0-9+/=]+$/.test(message.content)) {
-      return message; // not encrypted → return as-is
-    }
+//   try {
+//     // quick check: is it a valid base64? (AES output should be base64)
+//     if (!/^[A-Za-z0-9+/=]+$/.test(message.content)) {
+//       return message; // not encrypted → return as-is
+//     }
 
-    const decryptedBytes = CryptoJS.AES.decrypt(message.content, sharedKey);
-    const originalText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+//     const decryptedBytes = CryptoJS.AES.decrypt(message.content, sharedKey);
+//     const originalText = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-    if (!originalText) {
-      return message; // fallback if decryption fails silently
-    }
+//     if (!originalText) {
+//       return message; // fallback if decryption fails silently
+//     }
 
-    return { ...message, content: originalText };
-  } catch (e) {
-    console.error('❌ Failed to decrypt message:', e);
-    return message;
-  }
-}
+//     return { ...message, content: originalText };
+//   } catch (e) {
+//     console.error('❌ Failed to decrypt message:', e);
+//     return message;
+//   }
+// }
 
  async sendMessage(username:string,content:string){
   //return this.http.post<Message>(this.baseUrl+'messages',{recipientUsername:username,content});

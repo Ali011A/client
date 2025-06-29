@@ -5,10 +5,11 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { FormsModule } from '@angular/forms';
 import { MemberCardComponent } from '../members/member-card/member-card.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-lists',
-  imports: [ ButtonsModule,FormsModule ,MemberCardComponent,PaginationModule],
+  imports: [ ButtonsModule,FormsModule ,MemberCardComponent,PaginationModule ],
   templateUrl: './lists.component.html',
   styleUrl: './lists.component.css'
 })
@@ -18,13 +19,14 @@ export class ListsComponent implements OnInit ,OnDestroy  {
 predicate='liked';
 pageNumber=1;
 PageSize=5;
-
+loadingComplete = false;
 
   ngOnInit(): void {
       this.loadLikes();
   }
   get members() {
-  return this.likeService.paginationResult()?.items || [];
+  const result = this.likeService.paginationResult();
+  return result?.items || [];
 }
  getTitle(): string {
   switch (this.predicate) {

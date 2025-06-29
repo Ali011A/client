@@ -46,7 +46,7 @@ memberChange=output<Member>();
       this.memberService.getMember(user.username ? user.username : '').subscribe({
         next: (response) => {
           this.member = response;
-          console.log('Member loaded:', response);
+          //console.log('Member loaded:', response);
         },
         error: (error) => {
           console.error('Error loading member:', error);

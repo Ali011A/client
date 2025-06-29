@@ -29,7 +29,12 @@ input:focus {
   background: transparent !important;
   color: #fff;
 }
-
+.forgot-link {
+  transition: color 0.3s ease;
+}
+.forgot-link:hover {
+  color: #ffc107 !important; /* لون ذهبي عصري */
+}
 /* Fade animation */
 .animated {
   animation: fadeIn 1.2s ease-in-out;

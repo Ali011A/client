@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LikesService } from './likes.service';
 import { PresenceService } from './presence.service';
+import { ResetPasswordDto } from '../_models/resetPasswordDto';
 
 
 @Injectable({
@@ -61,6 +62,14 @@ export class AccountService {
         })
       );
     }
+    resetPassword(model: ResetPasswordDto) {
+  return this.http.post(this.baseUrl + 'account/reset-password', model);
+}
+  forgotPassword(model: { email: string }) {
+    return this.http.post(this.baseUrl + 'account/forgot-password', model, {
+      responseType: 'text'
+    });
+  }
     setCurentUser(user:User){
       localStorage.setItem('user',JSON.stringify(user));
       this.currentUser.set(user);

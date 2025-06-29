@@ -31,14 +31,23 @@
   <h2 class="text-center mb-4 text-gradient" [innerHTML]="getTitle()"></h2>
 
   <!-- Loading State -->
-  <div class="text-center my-4" *ngIf="members.length === 0">
+  <!-- <div class="text-center my-4" *ngIf="members.length === 0">
     <i class="fas fa-spinner fa-spin fa-3x text-primary" *ngIf="!members.length && !loadingComplete"></i>
     <div *ngIf="loadingComplete && members.length === 0">
       <i class="fas fa-heart-broken fa-5x text-muted mb-3 d-block"></i>
       <h4 class="text-muted">No members found in this category</h4>
     </div>
-  </div>
+  </div> -->
+<!-- @if ((members?.length ?? 0) === 0) {
+  <i class="fas fa-spinner fa-spin fa-3x text-primary" *ngIf="!loadingComplete"></i>
 
+  @if (loadingComplete) {
+    <div>
+      <i class="fas fa-heart-broken fa-5x text-muted mb-3 d-block"></i>
+      <h4 class="text-muted">No members found in this category</h4>
+    </div>
+  }
+} -->
   <!-- Members Grid -->
   <div class="row g-4">
     @for (member of likeService.paginationResult()?.items; track member.id) {

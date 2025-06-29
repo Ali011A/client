@@ -32,7 +32,12 @@
           placeholder="كلمة المرور"
           required />
       </div>
-
+ <!-- Forgot Password Link -->
+  <div class="text-end mb-3">
+    <a [routerLink]="['/forgot-password']" class="text-info text-decoration-none forgot-link">
+      <i class="fas fa-key me-1"></i> نسيت كلمة المرور؟
+    </a>
+  </div>
       <!-- Submit Button -->
       <div class="d-grid">
         <button type="submit" class="btn btn-primary">
