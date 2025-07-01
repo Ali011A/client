@@ -9,29 +9,49 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
   styleUrl: './date-picker.component.css'
 })
 export class DatePickerComponent implements ControlValueAccessor {
- label=input<string>('');
- maxDate=input<Date>();
- bsConfig?:Partial<BsDatepickerConfig>;
-  registerForm:FormGroup = new FormGroup({});
- constructor(@Self() public ngControl:NgControl) {
-   this.ngControl.valueAccessor = this;
-   this.bsConfig={
-    containerClass:'theme-red',
-    dateInputFormat:'DD MMMM YYYY'
+ label = input<string>('');
+  maxDate = input<Date>();
+  bsConfig?: Partial<BsDatepickerConfig>;
 
-   }
- }
+  constructor(@Self() public ngControl: NgControl) {
+    this.ngControl.valueAccessor = this;
+
+    this.bsConfig = {
+      containerClass: 'theme-red',
+      dateInputFormat: 'DD MMMM YYYY'
+    };
+  }
+
+  // Methods for ControlValueAccessor
+  onChange: any = (value: Date | null) => {};
+  onTouched: any = () => {};
+
   writeValue(obj: any): void {
- 
+    if (obj) {
+      const date = new Date(obj);
+      // إن كان التاريخ غير صالح، اضبطه كـ undefined
+      this.dateValue = isNaN(date.getTime()) ? undefined : date;
+    }
   }
+
   registerOnChange(fn: any): void {
-    
+    this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-  
+    this.onTouched = fn;
   }
- get control():FormControl{
-   return this.ngControl.control as FormControl;
- }
+
+  setDisabledState?(isDisabled: boolean): void {
+    // دعم تعطيل الحقل
+  }
+
+  dateValue: Date | undefined;
+
+  onDateChange(date: Date): void {
+  this.dateValue = date;
+  this.onChange(date);
+  this.onTouched();
+}
 
 }

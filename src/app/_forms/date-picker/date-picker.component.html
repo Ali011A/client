@@ -1,4 +1,4 @@
-<div class="form-group">
+<!-- <div class="form-group">
   <label>تاريخ الميلاد</label>
   <input type="text" [class.is-invalid]="registerForm.get('dateOfBirth')?.errors
    && registerForm.get('dateOfBirth')?.touched" formControlName="dateOfBirth" 
@@ -12,4 +12,19 @@
    && registerForm.get('dateOfBirth')?.touched">
     تاريخ الميلاد مطلوب
 </div>
+</div> -->
+<div class="form-group">
+  <label *ngIf="label()">{{ label() }}</label>
+  
+  <input 
+    type="text"
+    bsDatepicker
+    [bsConfig]="bsConfig"
+    [maxDate]="maxDate()"
+    [value]="dateValue"
+    (bsValueChange)="onDateChange($event)"
+    (blur)="onTouched()"
+    class="form-control"
+    [placeholder]="label() || 'Select Date'"
+  />
 </div>
